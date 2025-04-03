@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:simple_kanban/utilities/widgets/custom_container.dart';
+import 'package:simple_kanban/services/test_data/load_test_data.dart';
+import 'package:simple_kanban/utilities/widgets/kanban_view.dart';
+import 'package:sizer/sizer.dart';
 
 @RoutePage()
 class TodoScreen extends StatefulWidget {
@@ -14,26 +16,22 @@ class _TodoScreenState extends State<TodoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, int index) {
-          return Column(
-            children: [
-              SizedBox(height: 10),
-              CustomContainer(child: Text("this is text")),
-              SizedBox(height: 10),
-            ],
-          );
+      body: FutureBuilder(
+        future: loadTestData(),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasData) {
+            return KanbanView(data: snapshot.requireData);
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Could not load data!'));
+          }
+          return CircularProgressIndicator();
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          /**
-           * We handle add todo here.
-           */
-          print("this add");
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: Text("Add Task"),
+        icon: Icon(Icons.add),
       ),
     );
   }

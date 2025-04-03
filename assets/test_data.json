@@ -1,0 +1,176 @@
+[
+  {
+    "title": "Grocery Shopping",
+    "body": "Buy vegetables, fruits, and milk for the week.",
+    "isCompleted": false,
+    "priority": "medium"
+  },
+  {
+    "title": "Finish Report",
+    "body": "Complete the quarterly performance report for submission.",
+    "isCompleted": false,
+    "priority": "high"
+  },
+  {
+    "title": "Call Mom",
+    "body": "Check in with Mom and ask how she's doing.",
+    "isCompleted": false,
+    "priority": "low"
+  },
+  {
+    "title": "Morning Workout",
+    "body": "30-minute jog followed by strength training.",
+    "isCompleted": true,
+    "priority": "medium"
+  },
+  {
+    "title": "Dentist Appointment",
+    "body": "Annual dental check-up at 3 PM.",
+    "isCompleted": false,
+    "priority": "high"
+  },
+  {
+    "title": "Code Review",
+    "body": "Review PR #1256 before merging into main branch.",
+    "isCompleted": true,
+    "priority": "medium"
+  },
+  {
+    "title": "Pay Rent",
+    "body": "Transfer rent payment to landlord by the 5th.",
+    "isCompleted": false,
+    "priority": "high"
+  },
+  {
+    "title": "Read a Book",
+    "body": "Continue reading 'Atomic Habits' for 30 minutes.",
+    "isCompleted": false,
+    "priority": "low"
+  },
+  {
+    "title": "Team Meeting",
+    "body": "Weekly sync-up with the engineering team at 10 AM.",
+    "isCompleted": true,
+    "priority": "medium"
+  },
+  {
+    "title": "Meal Prep",
+    "body": "Prepare healthy meals for the next three days.",
+    "isCompleted": false,
+    "priority": "medium"
+  },
+  {
+    "title": "Renew Car Insurance",
+    "body": "Check renewal details and make payment before due date.",
+    "isCompleted": false,
+    "priority": "high"
+  },
+  {
+    "title": "Practice Guitar",
+    "body": "Learn new chord progression and practice scales.",
+    "isCompleted": false,
+    "priority": "low"
+  },
+  {
+    "title": "Doctor’s Appointment",
+    "body": "Routine check-up scheduled for 2 PM.",
+    "isCompleted": false,
+    "priority": "high"
+  },
+  {
+    "title": "Laundry",
+    "body": "Wash and fold clothes.",
+    "isCompleted": true,
+    "priority": "low"
+  },
+  {
+    "title": "Plan Weekend Trip",
+    "body": "Research destinations and book accommodations.",
+    "isCompleted": false,
+    "priority": "medium"
+  },
+  {
+    "title": "Submit Invoice",
+    "body": "Send invoice for completed freelance project.",
+    "isCompleted": false,
+    "priority": "high"
+  },
+  {
+    "title": "Organize Desk",
+    "body": "De-clutter workspace and arrange documents.",
+    "isCompleted": false,
+    "priority": "low"
+  },
+  {
+    "title": "Reply to Emails",
+    "body": "Respond to pending client and work emails.",
+    "isCompleted": true,
+    "priority": "medium"
+  },
+  {
+    "title": "Fix Bug #1023",
+    "body": "Investigate and resolve user-reported issue.",
+    "isCompleted": false,
+    "priority": "high"
+  },
+  {
+    "title": "Practice Meditation",
+    "body": "10 minutes of guided meditation.",
+    "isCompleted": false,
+    "priority": "low"
+  },
+  {
+    "title": "Buy Birthday Gift",
+    "body": "Find a gift for Sarah's birthday next week.",
+    "isCompleted": false,
+    "priority": "medium"
+  },
+  {
+    "title": "Walk the Dog",
+    "body": "Take Rocky for an evening walk.",
+    "isCompleted": true,
+    "priority": "low"
+  },
+  {
+    "title": "Fix Website Layout",
+    "body": "Adjust CSS styles for mobile responsiveness.",
+    "isCompleted": false,
+    "priority": "high"
+  },
+  {
+    "title": "Prepare Presentation",
+    "body": "Create slides for next week's project update meeting.",
+    "isCompleted": false,
+    "priority": "medium"
+  },
+  {
+    "title": "Buy New Running Shoes",
+    "body": "Check online for a good pair of running shoes.",
+    "isCompleted": false,
+    "priority": "low"
+  },
+  {
+    "title": "Backup Files",
+    "body": "Backup important files to cloud storage.",
+    "isCompleted": true,
+    "priority": "medium"
+  },
+  {
+    "title": "Write Blog Post",
+    "body": "Draft article on productivity tips for developers.",
+    "isCompleted": false,
+    "priority": "medium"
+  },
+  {
+    "title": "Watch Tech Conference",
+    "body": "Catch up on highlights from FlutterConf 2025.",
+    "isCompleted": false,
+    "priority": "low"
+  },
+  {
+    "title": "Create Monthly Budget",
+    "body": "Plan expenses and savings for the next month.",
+    "isCompleted": false,
+    "priority": "medium"
+  }
+]
