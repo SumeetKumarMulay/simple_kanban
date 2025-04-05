@@ -4,6 +4,7 @@ import 'package:simple_kanban/utilities/themes/themes.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(SimpleKanban());
 }
 

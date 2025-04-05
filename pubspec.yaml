@@ -38,7 +38,10 @@ dependencies:
   json_annotation: ^4.9.0
   auto_route: ^10.0.1
   sizer: ^3.0.5
-  rich_readmore: ^1.1.1
+  rich_readmore: ^1.1.1 
+  localstore: ^1.4.0
+  flutter_bloc: ^9.1.0
+  
 
 dev_dependencies:
   flutter_test:

@@ -25,10 +25,11 @@ enum Priority {
 @freezed
 abstract class TaskModel with _$TaskModel {
   const factory TaskModel({
-   String? title,
-   required String body,
-   required bool isCompleted,
-   required Priority priority,
+    String? title,
+    String? id,
+    required String body,
+    @Default(false) bool isCompleted,
+    required Priority priority,
   }) = _TaskModel;
 
   factory TaskModel.fromJson(Map<String, dynamic> json) =>

@@ -27,6 +27,22 @@ class CompletedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CreateTaskScreen]
+class CreateTaskRoute extends PageRouteInfo<void> {
+  const CreateTaskRoute({List<PageRouteInfo>? children})
+    : super(CreateTaskRoute.name, initialChildren: children);
+
+  static const String name = 'CreateTaskRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CreateTaskScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})

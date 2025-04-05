@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:simple_kanban/screens/home_screen.dart';
 import 'package:simple_kanban/screens/kanban_screens/completed_screen.dart';
+import 'package:simple_kanban/screens/kanban_screens/create_task_screen.dart';
 import 'package:simple_kanban/screens/kanban_screens/in_progress_screen.dart';
 import 'package:simple_kanban/screens/kanban_screens/todo_screen.dart';
 
@@ -24,5 +25,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: CompletedRoute.page, path: 'complete-page'),
       ],
     ),
+    AutoRoute(
+      page: CreateTaskRoute.page, path: '/create-task-page'),
   ];
 }
