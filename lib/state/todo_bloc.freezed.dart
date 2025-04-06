@@ -289,6 +289,168 @@ String toString() {
 
 
 /// @nodoc
+
+
+class _onInitStateCreateTask implements TodoEvents {
+  const _onInitStateCreateTask();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _onInitStateCreateTask);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'TodoEvents.onInitStateCreateTask()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _onInitStateEditTask implements TodoEvents {
+  const _onInitStateEditTask();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _onInitStateEditTask);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'TodoEvents.onInitStateEditTask()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _disposeControllerEvent implements TodoEvents {
+  const _disposeControllerEvent();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _disposeControllerEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'TodoEvents.disposeControllerEvent()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _togglePriorityValue implements TodoEvents {
+  const _togglePriorityValue({required this.priorityValue});
+  
+
+ final  String? priorityValue;
+
+/// Create a copy of TodoEvents
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$togglePriorityValueCopyWith<_togglePriorityValue> get copyWith => __$togglePriorityValueCopyWithImpl<_togglePriorityValue>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _togglePriorityValue&&(identical(other.priorityValue, priorityValue) || other.priorityValue == priorityValue));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,priorityValue);
+
+@override
+String toString() {
+  return 'TodoEvents.togglePriorityValue(priorityValue: $priorityValue)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$togglePriorityValueCopyWith<$Res> implements $TodoEventsCopyWith<$Res> {
+  factory _$togglePriorityValueCopyWith(_togglePriorityValue value, $Res Function(_togglePriorityValue) _then) = __$togglePriorityValueCopyWithImpl;
+@useResult
+$Res call({
+ String? priorityValue
+});
+
+
+
+
+}
+/// @nodoc
+class __$togglePriorityValueCopyWithImpl<$Res>
+    implements _$togglePriorityValueCopyWith<$Res> {
+  __$togglePriorityValueCopyWithImpl(this._self, this._then);
+
+  final _togglePriorityValue _self;
+  final $Res Function(_togglePriorityValue) _then;
+
+/// Create a copy of TodoEvents
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? priorityValue = freezed,}) {
+  return _then(_togglePriorityValue(
+priorityValue: freezed == priorityValue ? _self.priorityValue : priorityValue // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$TodoStates {
 
 
@@ -414,6 +576,118 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'TodoStates.loading()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class InitCreateTaskState implements TodoStates {
+  const InitCreateTaskState({required this.priorityValue, required final  List<String> priorityList, required this.titleController, required this.bodyController, required this.formKey}): _priorityList = priorityList;
+  
+
+ final  String? priorityValue;
+ final  List<String> _priorityList;
+ List<String> get priorityList {
+  if (_priorityList is EqualUnmodifiableListView) return _priorityList;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_priorityList);
+}
+
+ final  TextEditingController titleController;
+ final  TextEditingController bodyController;
+ final  GlobalKey<FormState> formKey;
+
+/// Create a copy of TodoStates
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$InitCreateTaskStateCopyWith<InitCreateTaskState> get copyWith => _$InitCreateTaskStateCopyWithImpl<InitCreateTaskState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitCreateTaskState&&(identical(other.priorityValue, priorityValue) || other.priorityValue == priorityValue)&&const DeepCollectionEquality().equals(other._priorityList, _priorityList)&&(identical(other.titleController, titleController) || other.titleController == titleController)&&(identical(other.bodyController, bodyController) || other.bodyController == bodyController)&&(identical(other.formKey, formKey) || other.formKey == formKey));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,priorityValue,const DeepCollectionEquality().hash(_priorityList),titleController,bodyController,formKey);
+
+@override
+String toString() {
+  return 'TodoStates.initCreateTaskState(priorityValue: $priorityValue, priorityList: $priorityList, titleController: $titleController, bodyController: $bodyController, formKey: $formKey)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $InitCreateTaskStateCopyWith<$Res> implements $TodoStatesCopyWith<$Res> {
+  factory $InitCreateTaskStateCopyWith(InitCreateTaskState value, $Res Function(InitCreateTaskState) _then) = _$InitCreateTaskStateCopyWithImpl;
+@useResult
+$Res call({
+ String? priorityValue, List<String> priorityList, TextEditingController titleController, TextEditingController bodyController, GlobalKey<FormState> formKey
+});
+
+
+
+
+}
+/// @nodoc
+class _$InitCreateTaskStateCopyWithImpl<$Res>
+    implements $InitCreateTaskStateCopyWith<$Res> {
+  _$InitCreateTaskStateCopyWithImpl(this._self, this._then);
+
+  final InitCreateTaskState _self;
+  final $Res Function(InitCreateTaskState) _then;
+
+/// Create a copy of TodoStates
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? priorityValue = freezed,Object? priorityList = null,Object? titleController = null,Object? bodyController = null,Object? formKey = null,}) {
+  return _then(InitCreateTaskState(
+priorityValue: freezed == priorityValue ? _self.priorityValue : priorityValue // ignore: cast_nullable_to_non_nullable
+as String?,priorityList: null == priorityList ? _self._priorityList : priorityList // ignore: cast_nullable_to_non_nullable
+as List<String>,titleController: null == titleController ? _self.titleController : titleController // ignore: cast_nullable_to_non_nullable
+as TextEditingController,bodyController: null == bodyController ? _self.bodyController : bodyController // ignore: cast_nullable_to_non_nullable
+as TextEditingController,formKey: null == formKey ? _self.formKey : formKey // ignore: cast_nullable_to_non_nullable
+as GlobalKey<FormState>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class InitEditTaskState implements TodoStates {
+  const InitEditTaskState();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InitEditTaskState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'TodoStates.initEditTaskState()';
 }
 
 

@@ -15,6 +15,18 @@ class TodoScreen extends StatefulWidget {
 
 class _TodoScreenState extends State<TodoScreen> {
   @override
+  void initState() {
+    BlocProvider.of<TodoBloc>(context).add(TodoEvents.onInitState());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    BlocProvider.of<TodoBloc>(context).add(TodoEvents.disposeControllerEvent());
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<TodoBloc, TodoStates>(
@@ -23,9 +35,9 @@ class _TodoScreenState extends State<TodoScreen> {
             case Initial(:final todoList):
               return KanbanView(data: todoList ?? []);
             case Loading():
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             case _:
-              return Placeholder();
+              return Center(child: CircularProgressIndicator());
           }
         },
         listener: (context, state) {},

@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:simple_kanban/services/database/database.dart';
@@ -14,6 +15,9 @@ class TodoBloc extends Bloc<TodoEvents, TodoStates> {
     on<_AddIsCompleteTasks>(_handleIsCompleteTasks);
     on<_AddTodoTasksToMemory>(_handleTodoTasksToMemory);
     on<_onInitState>(_handleInitialState);
+    on<_onInitStateCreateTask>(_handleInitStateCreateTask);
+    on<_disposeControllerEvent>(_disposeController);
+    on<_togglePriorityValue>(_handlePriorityValue);
 
     Database().getTodoStream().listen((tasks) {
       add(TodoEvents.addTodoTasksToMemory(task: tasks));
@@ -21,6 +25,13 @@ class TodoBloc extends Bloc<TodoEvents, TodoStates> {
   }
 
   List<TaskModel> todoList = [];
+
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController bodyController = TextEditingController();
+  final List<String> priorityList = ["low", "medium", "high"];
+  final formKey = GlobalKey<FormState>();
+
+  String? priorityValue;
 
   Future<void> _handleAddTasks(_AddTasks event, Emitter emit) async {
     Database db = Database();
@@ -37,7 +48,38 @@ class TodoBloc extends Bloc<TodoEvents, TodoStates> {
     emit(TodoStates.initial(todoList: todoList));
   }
 
+  void _handlePriorityValue(_togglePriorityValue event, Emitter emit) {
+    priorityValue = event.priorityValue;
+    emit(
+      TodoStates.initCreateTaskState(
+        priorityValue: priorityValue,
+        priorityList: priorityList,
+        titleController: titleController,
+        bodyController: bodyController,
+        formKey: formKey,
+      ),
+    );
+  }
+
   void _handleInitialState(_onInitState event, Emitter emit) {
     emit(TodoStates.initial(todoList: todoList));
+  }
+
+  void _handleInitStateCreateTask(_onInitStateCreateTask event, Emitter emit) {
+    priorityValue = priorityList.first;
+    emit(
+      TodoStates.initCreateTaskState(
+        priorityValue: priorityValue,
+        priorityList: priorityList,
+        titleController: titleController,
+        bodyController: bodyController,
+        formKey: formKey,
+      ),
+    );
+  }
+
+  void _disposeController(_disposeControllerEvent event, Emitter emit) {
+    titleController.dispose();
+    bodyController.dispose();
   }
 }

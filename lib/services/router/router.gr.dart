@@ -43,6 +43,22 @@ class CreateTaskRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [EditTaskScreen]
+class EditTaskRoute extends PageRouteInfo<void> {
+  const EditTaskRoute({List<PageRouteInfo>? children})
+    : super(EditTaskRoute.name, initialChildren: children);
+
+  static const String name = 'EditTaskRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const EditTaskScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
