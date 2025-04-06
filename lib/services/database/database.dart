@@ -1,4 +1,5 @@
 import 'package:localstore/localstore.dart';
+import 'package:simple_kanban/utilities/models/enums/enums.dart';
 import 'package:simple_kanban/utilities/models/task_model/task_model.dart';
 
 class Database {
@@ -19,7 +20,10 @@ class Database {
       id: id,
     );
     try {
-      await db.collection(_todoCollection).doc(id).set(updateTask.toJson());
+      await db
+          .collection(_todoCollection)
+          .doc(updateTask.id)
+          .set(updateTask.toJson());
     } catch (e) {
       throw Exception(
         'Something went wrong while writing $_todoCollection: $e',
@@ -55,6 +59,33 @@ class Database {
       }
     } else {
       throw Exception('Id could not be found for the task');
+    }
+  }
+
+  Future<void> saveEditedTask({
+    required String id,
+    required RoutedFrom routedFrom,
+    required TaskModel task,
+  }) async {
+    switch (routedFrom) {
+      case RoutedFrom.todoPage:
+        try {
+          await db.collection(_todoCollection).doc(id).set(task.toJson());
+        } catch (e) {
+          throw Exception('Something went wrong when editing task! $e');
+        }
+      case RoutedFrom.inProgressPage:
+        try {
+          await db.collection(_inProgressCollection).doc(id).set(task.toJson());
+        } catch (e) {
+          throw Exception('Something went wrong when editing task! $e');
+        }
+      case RoutedFrom.completedPage:
+        try {
+          await db.collection(_isCompleted).doc(id).set(task.toJson());
+        } catch (e) {
+          throw Exception('Something went wrong when editing task! $e');
+        }
     }
   }
 
@@ -101,8 +132,21 @@ class Database {
     }
   }
 
+  /// Database Streams
   Stream<TaskModel> getTodoStream() {
     return db.collection(_todoCollection).stream.map((item) {
+      return TaskModel.fromJson(item);
+    });
+  }
+
+  Stream<TaskModel> getInProgressStream() {
+    return db.collection(_inProgressCollection).stream.map((item) {
+      return TaskModel.fromJson(item);
+    });
+  }
+
+  Stream<TaskModel> getCompletedStream() {
+    return db.collection(_isCompleted).stream.map((item) {
       return TaskModel.fromJson(item);
     });
   }

@@ -41,6 +41,7 @@ dependencies:
   rich_readmore: ^1.1.1 
   localstore: ^1.4.0
   flutter_bloc: ^9.1.0
+  flutter_context_menu: ^0.2.2
   
 
 dev_dependencies:

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_kanban/state/todo_bloc.dart';
+import 'package:simple_kanban/utilities/models/enums/enums.dart';
 import 'package:simple_kanban/utilities/models/task_model/task_model.dart';
 import 'package:simple_kanban/utilities/widgets/custom_drop_down.dart';
 import 'package:simple_kanban/utilities/widgets/custom_text_form_field.dart';
@@ -80,7 +81,10 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                       selectedValue: priorityValue,
                       onChanged: (value) {
                         BlocProvider.of<TodoBloc>(context).add(
-                          TodoEvents.togglePriorityValue(priorityValue: value),
+                          TodoEvents.togglePriorityValue(
+                            priorityValue: value,
+                            toggledIn: ToggledIn.createTaskPage,
+                          ),
                         );
                       },
                       label: 'How important is it?',
@@ -118,9 +122,9 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
               ),
             );
           case Loading():
-            return Center(child: CircularProgressIndicator());
+            return Scaffold(body: Center(child: CircularProgressIndicator()));
           case _:
-            return Center(child: CircularProgressIndicator());
+            return Scaffold(body: Center(child: CircularProgressIndicator()));
         }
       },
       listener: (context, state) => {},

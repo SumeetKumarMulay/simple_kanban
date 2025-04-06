@@ -44,18 +44,50 @@ class CreateTaskRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [EditTaskScreen]
-class EditTaskRoute extends PageRouteInfo<void> {
-  const EditTaskRoute({List<PageRouteInfo>? children})
-    : super(EditTaskRoute.name, initialChildren: children);
+class EditTaskRoute extends PageRouteInfo<EditTaskRouteArgs> {
+  EditTaskRoute({
+    Key? key,
+    required TaskModel task,
+    required RoutedFrom routedFrom,
+    List<PageRouteInfo>? children,
+  }) : super(
+         EditTaskRoute.name,
+         args: EditTaskRouteArgs(key: key, task: task, routedFrom: routedFrom),
+         initialChildren: children,
+       );
 
   static const String name = 'EditTaskRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const EditTaskScreen();
+      final args = data.argsAs<EditTaskRouteArgs>();
+      return EditTaskScreen(
+        key: args.key,
+        task: args.task,
+        routedFrom: args.routedFrom,
+      );
     },
   );
+}
+
+class EditTaskRouteArgs {
+  const EditTaskRouteArgs({
+    this.key,
+    required this.task,
+    required this.routedFrom,
+  });
+
+  final Key? key;
+
+  final TaskModel task;
+
+  final RoutedFrom routedFrom;
+
+  @override
+  String toString() {
+    return 'EditTaskRouteArgs{key: $key, task: $task, routedFrom: $routedFrom}';
+  }
 }
 
 /// generated route for

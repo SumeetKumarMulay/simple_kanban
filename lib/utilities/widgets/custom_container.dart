@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rich_readmore/rich_readmore.dart';
 import 'package:simple_kanban/utilities/models/task_model/task_model.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,6 +8,7 @@ class CustomContainer extends StatelessWidget {
   final double elevation;
   final TaskModel data;
   final Function(bool?)? onCheckMark;
+  final Function()? onDelete;
 
   const CustomContainer({
     super.key,
@@ -17,6 +17,7 @@ class CustomContainer extends StatelessWidget {
     this.elevation = 6.0,
     required this.data,
     this.onCheckMark,
+    this.onDelete,
   });
 
   @override
@@ -26,7 +27,7 @@ class CustomContainer extends StatelessWidget {
 
     return Container(
       width: 90.w,
-      height: 20.h,
+      height: 10.h,
       decoration: BoxDecoration(
         color: isDarkMode ? Color(0xFF262626) : Color(0xFFF7F5F6), // Background
         borderRadius: BorderRadius.circular(12),
@@ -46,36 +47,71 @@ class CustomContainer extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: GridView(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 2.5,
-          mainAxisSpacing: 2,
-        ),
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+      child: Stack(
         children: [
-          Center(child: Text(data.title ?? "")),
-          Center(
-            child: Text(
-              'Priority ${data.priority == Priority.high
-                  ? '!!!'
-                  : data.priority == Priority.medium
-                  ? '!!'
-                  : '!'}',
+          Positioned(
+            top: 0,
+            left: 0,
+            bottom: 0,
+            child: Center(
+              child: IconButton(onPressed: onDelete, icon: Icon(Icons.delete)),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 20),
+          Positioned(
+            top: 0,
+            left: 40,
+            bottom: 0,
             child: Center(
-              child: RichReadMoreText.fromString(
-                text: data.body,
-                settings: LineModeSettings(trimLines: 2),
+              child: Checkbox(value: data.isCompleted, onChanged: onCheckMark),
+            ),
+          ),
+          Positioned(
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  width: 50.w,
+                  child: Center(
+                    child: Visibility(
+                      visible: data.title == null ? false : true,
+                      child: Text(
+                        data.title ?? "",
+                        overflow: TextOverflow.fade,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 50.w,
+                  child: Center(
+                    child: Text(
+                      data.body,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 0,
+            bottom: 0,
+            right: 15,
+            child: Center(
+              child: Text(
+                'Priority ${data.priority == Priority.high
+                    ? '!!!'
+                    : data.priority == Priority.medium
+                    ? '!!'
+                    : '!'}',
               ),
             ),
-          ),
-          Center(
-            child: Checkbox(value: data.isCompleted, onChanged: onCheckMark),
           ),
         ],
       ),
