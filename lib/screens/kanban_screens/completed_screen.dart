@@ -23,7 +23,7 @@ class _CompletedScreenState extends State<CompletedScreen> {
             case Initial(:final completeList):
               return KanbanView(
                 data: completeList,
-                routedFrom: RoutedFrom.todoPage,
+                routedFrom: RoutedFrom.completedPage,
               );
             case Loading():
               return Center(child: CircularProgressIndicator());

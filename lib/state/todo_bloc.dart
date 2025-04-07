@@ -13,6 +13,7 @@ class TodoBloc extends Bloc<TodoEvents, TodoStates> {
   final Database db;
   TodoBloc({required this.db}) : super(TodoStates.initial()) {
     on<_AddTasks>(_handleAddTasks);
+    on<_MoveTaskToTodo>(_handleMoveTaskToTodo);
     on<_AddInProgressTasks>(_handleInProgressTasks);
     on<_AddIsCompleteTasks>(_handleIsCompleteTasks);
     on<_AddTodoTasksToMemory>(_handleTodoTasksToMemory);
@@ -70,9 +71,119 @@ class TodoBloc extends Bloc<TodoEvents, TodoStates> {
     emit(TodoStates.initial(todoList: todoList));
   }
 
-  void _handleInProgressTasks(_AddInProgressTasks event, Emitter emit) {}
+  Future<void> _handleInProgressTasks(
+    _AddInProgressTasks event,
+    Emitter emit,
+  ) async {
+    if (event.task.id != null) {
+      switch (event.routedFrom) {
+        case RoutedFrom.todoPage:
+          await db.writeTaskToInProgress(task: event.task);
+          await db.deleteTaskWithId(
+            id: event.task.id!,
+            routedFrom: event.routedFrom,
+          );
+          todoList = List<TaskModel>.from(todoList)
+            ..removeWhere((value) => value.id == event.task.id);
+          add(TodoEvents.onInitState());
+        case RoutedFrom.inProgressPage:
+          add(TodoEvents.onInitState());
+        case RoutedFrom.completedPage:
+          TaskModel updateTask = TaskModel(
+            body: event.task.body,
+            priority: event.task.priority,
+            title: event.task.title,
+            id: event.task.id,
+            isCompleted: false,
+          );
+          await db.writeTaskToInProgress(task: updateTask);
+          await db.deleteTaskWithId(
+            id: event.task.id!,
+            routedFrom: event.routedFrom,
+          );
+          completedList = List<TaskModel>.from(completedList)
+            ..removeWhere((value) => value.id == event.task.id);
+          add(TodoEvents.onInitState());
+      }
+    }
+  }
 
-  void _handleIsCompleteTasks(_AddIsCompleteTasks event, Emitter emit) {}
+  Future<void> _handleMoveTaskToTodo(
+    _MoveTaskToTodo event,
+    Emitter emit,
+  ) async {
+    switch (event.routedFrom) {
+      case RoutedFrom.todoPage:
+        add(TodoEvents.onInitState());
+      case RoutedFrom.inProgressPage:
+        await db.writeTasksToTodo(task: event.task);
+        await db.deleteTaskWithId(
+          id: event.task.id!,
+          routedFrom: event.routedFrom,
+        );
+        progressList = List<TaskModel>.from(progressList)
+          ..removeWhere((value) => value.id == event.task.id);
+        add(TodoEvents.onInitState());
+      case RoutedFrom.completedPage:
+        TaskModel updateTask = TaskModel(
+          body: event.task.body,
+          priority: event.task.priority,
+          title: event.task.title,
+          id: event.task.id,
+          isCompleted: false,
+        );
+        await db.writeTasksToTodo(task: updateTask);
+        await db.deleteTaskWithId(
+          id: event.task.id!,
+          routedFrom: event.routedFrom,
+        );
+        completedList = List<TaskModel>.from(completedList)
+          ..removeWhere((value) => value.id == event.task.id);
+        add(TodoEvents.onInitState());
+    }
+  }
+
+  Future<void> _handleIsCompleteTasks(
+    _AddIsCompleteTasks event,
+    Emitter emit,
+  ) async {
+    switch (event.routedFrom) {
+      case RoutedFrom.completedPage:
+        add(TodoEvents.onInitState());
+      case RoutedFrom.inProgressPage:
+        TaskModel updateTask = TaskModel(
+          body: event.task.body,
+          priority: event.task.priority,
+          title: event.task.title,
+          id: event.task.id,
+          isCompleted: true,
+        );
+        await db.writeTaskToIsCompleted(task: updateTask);
+        await db.deleteTaskWithId(
+          id: event.task.id!,
+          routedFrom: event.routedFrom,
+        );
+        progressList = List<TaskModel>.from(progressList)
+          ..removeWhere((value) => value.id == event.task.id);
+        add(TodoEvents.onInitState());
+      case RoutedFrom.todoPage:
+        TaskModel updateTask = TaskModel(
+          body: event.task.body,
+          priority: event.task.priority,
+          title: event.task.title,
+          id: event.task.id,
+          isCompleted: true,
+        );
+        await db.writeTaskToIsCompleted(task: updateTask);
+        await db.deleteTaskWithId(
+          id: event.task.id!,
+          routedFrom: event.routedFrom,
+        );
+        todoList = List<TaskModel>.from(todoList)
+          ..removeWhere((value) => value.id == event.task.id);
+        add(TodoEvents.onInitState());
+    }
+  }
 
   /// This function is used the sort tasks based on priority.
   List<TaskModel> _sortList(List<TaskModel> inputList) {
@@ -90,15 +201,15 @@ class TodoBloc extends Bloc<TodoEvents, TodoStates> {
       case RoutedFrom.todoPage:
         todoList = [...todoList, event.task];
         todoList = _sortList(todoList);
-        emit(TodoStates.initial(todoList: todoList));
+        add(TodoEvents.onInitState());
       case RoutedFrom.inProgressPage:
         progressList = [...progressList, event.task];
         progressList = _sortList(progressList);
-        emit(TodoStates.initial(progressList: progressList));
+        add(TodoEvents.onInitState());
       case RoutedFrom.completedPage:
         completedList = [...completedList, event.task];
         completedList = _sortList(completedList);
-        emit(TodoStates.initial(completeList: completedList));
+        add(TodoEvents.onInitState());
     }
   }
 
@@ -128,7 +239,13 @@ class TodoBloc extends Bloc<TodoEvents, TodoStates> {
   }
 
   void _handleInitialState(_onInitState event, Emitter emit) {
-    emit(TodoStates.initial(todoList: todoList));
+    emit(
+      TodoStates.initial(
+        todoList: todoList,
+        progressList: progressList,
+        completeList: completedList,
+      ),
+    );
   }
 
   void _handleInitStateCreateTask(_onInitStateCreateTask event, Emitter emit) {
@@ -176,16 +293,15 @@ class TodoBloc extends Bloc<TodoEvents, TodoStates> {
         case RoutedFrom.todoPage:
           todoList = List<TaskModel>.from(todoList)
             ..removeWhere((value) => value.id == event.task.id);
-          emit(TodoStates.initial(todoList: todoList));
+          add(TodoEvents.onInitState());
         case RoutedFrom.inProgressPage:
           progressList = List<TaskModel>.from(progressList)
             ..removeWhere((value) => value.id == event.task.id);
-          emit(TodoStates.initial(progressList: progressList));
+          add(TodoEvents.onInitState());
         case RoutedFrom.completedPage:
           completedList = List<TaskModel>.from(completedList)
             ..removeWhere((value) => value.id == event.task.id);
-          completedList.removeWhere((value) => value.id == event.task.id);
-          emit(TodoStates.initial(completeList: completedList));
+          add(TodoEvents.onInitState());
       }
     }
   }
@@ -198,16 +314,15 @@ class TodoBloc extends Bloc<TodoEvents, TodoStates> {
       case RoutedFrom.todoPage:
         todoList = List<TaskModel>.from(todoList)
           ..removeWhere((value) => value.id == event.id);
-        emit(TodoStates.initial(todoList: todoList));
+        add(TodoEvents.onInitState());
       case RoutedFrom.inProgressPage:
         progressList = List<TaskModel>.from(progressList)
           ..removeWhere((value) => value.id == event.id);
-        emit(TodoStates.initial(progressList: progressList));
+        add(TodoEvents.onInitState());
       case RoutedFrom.completedPage:
         completedList = List<TaskModel>.from(completedList)
           ..removeWhere((value) => value.id == event.id);
-        completedList.removeWhere((value) => value.id == event.id);
-        emit(TodoStates.initial(completeList: completedList));
+        add(TodoEvents.onInitState());
     }
   }
 

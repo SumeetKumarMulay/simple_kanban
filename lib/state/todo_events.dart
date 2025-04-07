@@ -5,11 +5,23 @@ class TodoEvents with _$TodoEvents {
   /// This is used to add tasks.
   const factory TodoEvents.addTasks({required TaskModel task}) = _AddTasks;
 
+  /// This task moves task todo
+  const factory TodoEvents.moveTaskToTodo({
+    required TaskModel task,
+    required RoutedFrom routedFrom,
+  }) = _MoveTaskToTodo;
+
   /// This moves tasks to in progress
-  const factory TodoEvents.addInProgressTasks() = _AddInProgressTasks;
+  const factory TodoEvents.addInProgressTasks({
+    required TaskModel task,
+    required RoutedFrom routedFrom,
+  }) = _AddInProgressTasks;
 
   /// This moves tasks to.
-  const factory TodoEvents.addInCompleteTasks() = _AddIsCompleteTasks;
+  const factory TodoEvents.addInCompleteTasks({
+    required TaskModel task,
+    required RoutedFrom routedFrom,
+  }) = _AddIsCompleteTasks;
 
   /// This add tasks from database to memory.
   const factory TodoEvents.addTodoTasksToMemory({
