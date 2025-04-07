@@ -6,6 +6,7 @@ import 'package:simple_kanban/utilities/models/enums/enums.dart';
 import 'package:simple_kanban/utilities/models/task_model/task_model.dart';
 import 'package:simple_kanban/utilities/widgets/custom_drop_down.dart';
 import 'package:simple_kanban/utilities/widgets/custom_text_form_field.dart';
+import 'package:sizer/sizer.dart';
 
 @RoutePage()
 class CreateTaskScreen extends StatefulWidget {
@@ -64,38 +65,50 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                 ),
                 body: Form(
                   key: formKey,
-                  child: Column(
-                    children: [
-                      CustomTextFormField(
-                        controller: titleController,
-                        label: 'Do you want to title your task?',
-                        hint: 'Take your time..',
-                      ),
-                      CustomTextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "You need to describe the task!";
-                          }
-                          return null;
-                        },
-                        controller: bodyController,
-                        label: 'What would you like to get done?',
-                        hint: 'Keep it simple..',
-                      ),
-                      CustomDropDown<String>(
-                        items: priorityList,
-                        selectedValue: priorityValue,
-                        onChanged: (value) {
-                          BlocProvider.of<TodoBloc>(context).add(
-                            TodoEvents.togglePriorityValue(
-                              priorityValue: value,
-                              toggledIn: ToggledIn.createTaskPage,
-                            ),
-                          );
-                        },
-                        label: 'How important is it?',
-                      ),
-                    ],
+                  child: Center(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 5.h),
+                        SizedBox(
+                          width: 90.w,
+                          child: CustomTextFormField(
+                            controller: titleController,
+                            label: 'Do you want to title your task?',
+                            hint: 'Take your time..',
+                          ),
+                        ),
+                        SizedBox(
+                          width: 90.w,
+                          child: CustomTextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "You need to describe the task!";
+                              }
+                              return null;
+                            },
+                            controller: bodyController,
+                            label: 'What would you like to get done?',
+                            hint: 'Keep it simple..',
+                          ),
+                        ),
+                        SizedBox(
+                          width: 90.w,
+                          child: CustomDropDown<String>(
+                            items: priorityList,
+                            selectedValue: priorityValue,
+                            onChanged: (value) {
+                              BlocProvider.of<TodoBloc>(context).add(
+                                TodoEvents.togglePriorityValue(
+                                  priorityValue: value,
+                                  toggledIn: ToggledIn.createTaskPage,
+                                ),
+                              );
+                            },
+                            label: 'How important is it?',
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 floatingActionButton: FloatingActionButton(
