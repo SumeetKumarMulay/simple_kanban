@@ -172,7 +172,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'TodoEvents.addIsCompleteTasks()';
+  return 'TodoEvents.addInCompleteTasks()';
 }
 
 

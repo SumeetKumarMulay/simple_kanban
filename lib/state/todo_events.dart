@@ -9,7 +9,7 @@ class TodoEvents with _$TodoEvents {
   const factory TodoEvents.addInProgressTasks() = _AddInProgressTasks;
 
   /// This moves tasks to.
-  const factory TodoEvents.addIsCompleteTasks() = _AddIsCompleteTasks;
+  const factory TodoEvents.addInCompleteTasks() = _AddIsCompleteTasks;
 
   /// This add tasks from database to memory.
   const factory TodoEvents.addTodoTasksToMemory({

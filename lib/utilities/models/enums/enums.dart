@@ -20,3 +20,10 @@ enum RoutedFrom {
 }
 
 enum ToggledIn { createTaskPage, editTaskPage }
+
+enum EditMenuAction {
+  moveTaskToTodo,
+  moveTaskToInProgress,
+  moveTaskToComplete,
+  deleteTask,
+}

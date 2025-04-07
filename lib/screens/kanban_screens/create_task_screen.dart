@@ -39,86 +39,93 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
             :final titleController,
             :final formKey,
           ):
-            return Scaffold(
-              backgroundColor:
-                  Theme.of(context).brightness == Brightness.dark
-                      ? Colors.black
-                      : Colors.white,
-              appBar: AppBar(
-                title: Text('Create a task 🧠'),
-                leading: IconButton(
-                  onPressed: () {
-                    BlocProvider.of<TodoBloc>(
-                      context,
-                    ).add(TodoEvents.onInitState());
-                    context.router.pop();
-                  },
-                  icon: Icon(Icons.close),
+            return PopScope(
+              onPopInvokedWithResult: (didPop, result) {
+                BlocProvider.of<TodoBloc>(
+                  context,
+                ).add(TodoEvents.onInitState());
+              },
+              child: Scaffold(
+                backgroundColor:
+                    Theme.of(context).brightness == Brightness.dark
+                        ? Colors.black
+                        : Colors.white,
+                appBar: AppBar(
+                  title: Text('Create a task 🧠'),
+                  leading: IconButton(
+                    onPressed: () {
+                      BlocProvider.of<TodoBloc>(
+                        context,
+                      ).add(TodoEvents.onInitState());
+                      context.router.pop();
+                    },
+                    icon: Icon(Icons.close),
+                  ),
                 ),
-              ),
-              body: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    CustomTextFormField(
-                      controller: titleController,
-                      label: 'Do you want to title your task?',
-                      hint: 'Take your time..',
-                    ),
-                    CustomTextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "You need to describe the task!";
-                        }
-                        return null;
-                      },
-                      controller: bodyController,
-                      label: 'What would you like to get done?',
-                      hint: 'Keep it simple..',
-                    ),
-                    CustomDropDown<String>(
-                      items: priorityList,
-                      selectedValue: priorityValue,
-                      onChanged: (value) {
-                        BlocProvider.of<TodoBloc>(context).add(
-                          TodoEvents.togglePriorityValue(
-                            priorityValue: value,
-                            toggledIn: ToggledIn.createTaskPage,
-                          ),
-                        );
-                      },
-                      label: 'How important is it?',
-                    ),
-                  ],
-                ),
-              ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    /// Process data here
-                    BlocProvider.of<TodoBloc>(context).add(
-                      TodoEvents.addTasks(
-                        task: TaskModel(
-                          body: bodyController.text,
-                          priority:
-                              priorityValue == 'high'
-                                  ? Priority.high
-                                  : priorityValue == "medium"
-                                  ? Priority.medium
-                                  : Priority.low,
-                          title: titleController.text,
-                        ),
+                body: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      CustomTextFormField(
+                        controller: titleController,
+                        label: 'Do you want to title your task?',
+                        hint: 'Take your time..',
                       ),
-                    );
-                    BlocProvider.of<TodoBloc>(
-                      context,
-                    ).add(TodoEvents.onInitState());
-                    titleController.clear();
-                    bodyController.clear();
-                    context.router.pop();
-                  }
-                },
-                child: Icon(Icons.check),
+                      CustomTextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "You need to describe the task!";
+                          }
+                          return null;
+                        },
+                        controller: bodyController,
+                        label: 'What would you like to get done?',
+                        hint: 'Keep it simple..',
+                      ),
+                      CustomDropDown<String>(
+                        items: priorityList,
+                        selectedValue: priorityValue,
+                        onChanged: (value) {
+                          BlocProvider.of<TodoBloc>(context).add(
+                            TodoEvents.togglePriorityValue(
+                              priorityValue: value,
+                              toggledIn: ToggledIn.createTaskPage,
+                            ),
+                          );
+                        },
+                        label: 'How important is it?',
+                      ),
+                    ],
+                  ),
+                ),
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      /// Process data here
+                      BlocProvider.of<TodoBloc>(context).add(
+                        TodoEvents.addTasks(
+                          task: TaskModel(
+                            body: bodyController.text,
+                            priority:
+                                priorityValue == 'high'
+                                    ? Priority.high
+                                    : priorityValue == "medium"
+                                    ? Priority.medium
+                                    : Priority.low,
+                            title: titleController.text,
+                          ),
+                        ),
+                      );
+                      // BlocProvider.of<TodoBloc>(
+                      //   context,
+                      // ).add(TodoEvents.onInitState());
+                      titleController.clear();
+                      bodyController.clear();
+                      context.router.pop();
+                    }
+                  },
+                  child: Icon(Icons.check),
+                ),
               ),
             );
           case Loading():

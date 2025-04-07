@@ -35,9 +35,8 @@ class _TodoScreenState extends State<TodoScreen> {
           switch (state) {
             case Initial(:final todoList):
               return KanbanView(
-                data: todoList ?? [],
+                data: todoList,
                 routedFrom: RoutedFrom.todoPage,
-                
               );
             case Loading():
               return Center(child: CircularProgressIndicator());
@@ -45,7 +44,7 @@ class _TodoScreenState extends State<TodoScreen> {
               return Center(child: CircularProgressIndicator());
           }
         },
-        listener: (context, state) {},
+        listener: (context, state) => {},
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {

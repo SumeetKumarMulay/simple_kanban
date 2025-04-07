@@ -105,28 +105,19 @@ class Database {
     }
   }
 
-  Future<void> deleteTaskWithId({required String id}) async {
+  Future<void> deleteTaskWithId({
+    required String id,
+    required RoutedFrom routedFrom,
+  }) async {
     try {
-      final docTodo = db.collection(_todoCollection).doc(id);
-      final docInProgress = db.collection(_inProgressCollection).doc(id);
-      final docCompleted = db.collection(_isCompleted).doc(id);
-
-      if ((await docTodo.get()) != null) {
-        await docTodo.delete();
-        return;
+      switch (routedFrom) {
+        case RoutedFrom.todoPage:
+          await db.collection(_todoCollection).doc(id).delete();
+        case RoutedFrom.inProgressPage:
+          await db.collection(_inProgressCollection).doc(id).delete();
+        case RoutedFrom.completedPage:
+          await db.collection(_isCompleted).doc(id).delete();
       }
-
-      if ((await docInProgress.get()) != null) {
-        await docInProgress.delete();
-        return;
-      }
-
-      if ((await docCompleted.get()) != null) {
-        await docCompleted.delete();
-        return;
-      }
-
-      throw Exception('Task with id $id not found in any collection.');
     } catch (e) {
       throw Exception('Something went wrong while deleting task: $e');
     }

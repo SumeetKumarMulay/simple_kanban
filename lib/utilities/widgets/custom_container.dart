@@ -48,18 +48,10 @@ class CustomContainer extends StatelessWidget {
         ),
       ),
       child: Stack(
-        children: [
+        children: [ 
           Positioned(
             top: 0,
             left: 0,
-            bottom: 0,
-            child: Center(
-              child: IconButton(onPressed: onDelete, icon: Icon(Icons.delete)),
-            ),
-          ),
-          Positioned(
-            top: 0,
-            left: 40,
             bottom: 0,
             child: Center(
               child: Checkbox(value: data.isCompleted, onChanged: onCheckMark),

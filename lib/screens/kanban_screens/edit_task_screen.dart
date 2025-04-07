@@ -41,85 +41,94 @@ class _EditTaskScreenState extends State<EditTaskScreen> {
             :final titleController,
             :final bodyController,
           ):
-            return Scaffold(
-              backgroundColor:
-                  Theme.of(context).brightness == Brightness.dark
-                      ? Colors.black
-                      : Colors.white,
-              appBar: AppBar(
-                title: Text('Edit your task ✏'),
-                leading: IconButton(
+            return PopScope(
+              onPopInvokedWithResult: (didPop, result) {
+                BlocProvider.of<TodoBloc>(
+                  context,
+                ).add(TodoEvents.onInitState());
+                titleController.clear();
+                bodyController.clear();
+              },
+              child: Scaffold(
+                backgroundColor:
+                    Theme.of(context).brightness == Brightness.dark
+                        ? Colors.black
+                        : Colors.white,
+                appBar: AppBar(
+                  title: Text('Edit your task ✏'),
+                  leading: IconButton(
+                    onPressed: () {
+                      BlocProvider.of<TodoBloc>(
+                        context,
+                      ).add(TodoEvents.onInitState());
+                      context.router.pop();
+                      titleController.clear();
+                      bodyController.clear();
+                    },
+                    icon: Icon(Icons.close),
+                  ),
+                ),
+                body: Column(
+                  children: [
+                    CustomTextFormField(
+                      controller: titleController,
+                      label: 'Do you want to title your task?',
+                      hint: 'Take your time..',
+                    ),
+                    CustomTextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "You need to describe the task!";
+                        }
+                        return null;
+                      },
+                      controller: bodyController,
+                      label: 'What would you like to get done?',
+                      hint: 'Keep it simple..',
+                    ),
+                    CustomDropDown<String>(
+                      items: priorityList,
+                      selectedValue: priorityValue,
+                      onChanged: (value) {
+                        BlocProvider.of<TodoBloc>(context).add(
+                          TodoEvents.togglePriorityValue(
+                            priorityValue: value,
+                            toggledIn: ToggledIn.editTaskPage,
+                          ),
+                        );
+                      },
+                      label: 'How important is it?',
+                    ),
+                  ],
+                ),
+                floatingActionButton: FloatingActionButton(
                   onPressed: () {
+                    /// Handle edit task here
+                    BlocProvider.of<TodoBloc>(context).add(
+                      TodoEvents.completeEditTask(
+                        task: TaskModel(
+                          id: widget.task.id,
+                          title: titleController.text,
+                          body: bodyController.text,
+                          priority:
+                              priorityValue == 'high'
+                                  ? Priority.high
+                                  : priorityValue == "medium"
+                                  ? Priority.medium
+                                  : Priority.low,
+                        ),
+                        routedFrom: widget.routedFrom,
+                      ),
+                    );
                     BlocProvider.of<TodoBloc>(
                       context,
                     ).add(TodoEvents.onInitState());
-                    context.router.pop();
                     titleController.clear();
                     bodyController.clear();
+                    context.router.pop();
                   },
-                  icon: Icon(Icons.close),
+                  child: Icon(Icons.check),
                 ),
-              ),
-              body: Column(
-                children: [
-                  CustomTextFormField(
-                    controller: titleController,
-                    label: 'Do you want to title your task?',
-                    hint: 'Take your time..',
-                  ),
-                  CustomTextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "You need to describe the task!";
-                      }
-                      return null;
-                    },
-                    controller: bodyController,
-                    label: 'What would you like to get done?',
-                    hint: 'Keep it simple..',
-                  ),
-                  CustomDropDown<String>(
-                    items: priorityList,
-                    selectedValue: priorityValue,
-                    onChanged: (value) {
-                      BlocProvider.of<TodoBloc>(context).add(
-                        TodoEvents.togglePriorityValue(
-                          priorityValue: value,
-                          toggledIn: ToggledIn.editTaskPage,
-                        ),
-                      );
-                    },
-                    label: 'How important is it?',
-                  ),
-                ],
-              ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  /// Handle edit task here
-                  BlocProvider.of<TodoBloc>(context).add(
-                    TodoEvents.completeEditTask(
-                      task: TaskModel(
-                        id: widget.task.id,
-                        title: titleController.text,
-                        body: bodyController.text,
-                        priority:
-                            priorityValue == 'high'
-                                ? Priority.high
-                                : priorityValue == "medium"
-                                ? Priority.medium
-                                : Priority.low,
-                      ),
-                      routedFrom: widget.routedFrom,
-                    ),
-                  );
-                  BlocProvider.of<TodoBloc>(
-                    context,
-                  ).add(TodoEvents.onInitState());
-                  titleController.clear();
-                  bodyController.clear();
-                  context.router.pop();
-                },
-                child: Icon(Icons.check),
               ),
             );
           case Loading():
