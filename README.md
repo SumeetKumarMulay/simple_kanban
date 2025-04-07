@@ -1,14 +1,14 @@
 # simple_kanban
 
-This is a simple kanban app. It is build using Flutter and Bloc for state management.
-The List automatically sorts itself base on priority. The application currently works
-on android and iOS with a web version and table version coming soon.
+This is a simple kanban app. It is build using Flutter and Bloc for state management. The List automatically sorts itself base on priority. The application currently works on android and iOS with a web version and table version coming soon.
 
 ## Getting Started
 
 to run the project
 
 ```
+flutter pub get
+
 flutter run
 
 or
@@ -18,13 +18,15 @@ flutter build apk --release (for android)
 
 ## Project Structure
 
+```
 .
 └── lib/
-├── screens
-├── services
-├── state
-├── utilities
+    ├── screens
+    ├── services
+    ├── state
+    ├── utilities
 └── main.dart
+```
 
 ## Screenshots
 
@@ -33,9 +35,6 @@ flutter build apk --release (for android)
     <td><img src="screen_shots/to_do_screen.png" width="200"/></td>
     <td><img src="screen_shots/in_progress.png" width="200"/></td>
     <td><img src="screen_shots/create_task.png" width="200"/></td>
-    <td><img src="screen_shots/create_task_priority_drop_down.png" width="200"/></td>
-    <td><img src="screen_shots/context_menu.png" width="200"/></td>
-    <td><img src="screen_shots/completed.png" width="200"/></td>
   </tr>
 </table>
 
