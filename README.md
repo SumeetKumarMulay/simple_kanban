@@ -39,6 +39,14 @@ flutter build apk --release (for android)
   </tr>
 </table>
 
+<table>
+  <tr>
+    <td><img src="screen_shots/create_task_priority_drop_down.png" width="200"/></td>
+    <td><img src="screen_shots/context_menu.png" width="200"/></td>
+    <td><img src="screen_shots/completed.png" width="200"/></td>
+  </tr>
+</table>
+
 ## Important
 
 1. The project needs to be signed by you before you install
