@@ -120,66 +120,233 @@ $TaskModelCopyWith<$Res> get task {
 /// @nodoc
 
 
-class _AddInProgressTasks implements TodoEvents {
-  const _AddInProgressTasks();
+class _MoveTaskToTodo implements TodoEvents {
+  const _MoveTaskToTodo({required this.task, required this.routedFrom});
   
 
+ final  TaskModel task;
+ final  RoutedFrom routedFrom;
 
-
+/// Create a copy of TodoEvents
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$MoveTaskToTodoCopyWith<_MoveTaskToTodo> get copyWith => __$MoveTaskToTodoCopyWithImpl<_MoveTaskToTodo>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddInProgressTasks);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MoveTaskToTodo&&(identical(other.task, task) || other.task == task)&&(identical(other.routedFrom, routedFrom) || other.routedFrom == routedFrom));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,task,routedFrom);
 
 @override
 String toString() {
-  return 'TodoEvents.addInProgressTasks()';
+  return 'TodoEvents.moveTaskToTodo(task: $task, routedFrom: $routedFrom)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$MoveTaskToTodoCopyWith<$Res> implements $TodoEventsCopyWith<$Res> {
+  factory _$MoveTaskToTodoCopyWith(_MoveTaskToTodo value, $Res Function(_MoveTaskToTodo) _then) = __$MoveTaskToTodoCopyWithImpl;
+@useResult
+$Res call({
+ TaskModel task, RoutedFrom routedFrom
+});
 
 
+$TaskModelCopyWith<$Res> get task;
+
+}
+/// @nodoc
+class __$MoveTaskToTodoCopyWithImpl<$Res>
+    implements _$MoveTaskToTodoCopyWith<$Res> {
+  __$MoveTaskToTodoCopyWithImpl(this._self, this._then);
+
+  final _MoveTaskToTodo _self;
+  final $Res Function(_MoveTaskToTodo) _then;
+
+/// Create a copy of TodoEvents
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? task = null,Object? routedFrom = null,}) {
+  return _then(_MoveTaskToTodo(
+task: null == task ? _self.task : task // ignore: cast_nullable_to_non_nullable
+as TaskModel,routedFrom: null == routedFrom ? _self.routedFrom : routedFrom // ignore: cast_nullable_to_non_nullable
+as RoutedFrom,
+  ));
+}
+
+/// Create a copy of TodoEvents
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TaskModelCopyWith<$Res> get task {
+  
+  return $TaskModelCopyWith<$Res>(_self.task, (value) {
+    return _then(_self.copyWith(task: value));
+  });
+}
+}
+
+/// @nodoc
+
+
+class _AddInProgressTasks implements TodoEvents {
+  const _AddInProgressTasks({required this.task, required this.routedFrom});
+  
+
+ final  TaskModel task;
+ final  RoutedFrom routedFrom;
+
+/// Create a copy of TodoEvents
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AddInProgressTasksCopyWith<_AddInProgressTasks> get copyWith => __$AddInProgressTasksCopyWithImpl<_AddInProgressTasks>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddInProgressTasks&&(identical(other.task, task) || other.task == task)&&(identical(other.routedFrom, routedFrom) || other.routedFrom == routedFrom));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,task,routedFrom);
+
+@override
+String toString() {
+  return 'TodoEvents.addInProgressTasks(task: $task, routedFrom: $routedFrom)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AddInProgressTasksCopyWith<$Res> implements $TodoEventsCopyWith<$Res> {
+  factory _$AddInProgressTasksCopyWith(_AddInProgressTasks value, $Res Function(_AddInProgressTasks) _then) = __$AddInProgressTasksCopyWithImpl;
+@useResult
+$Res call({
+ TaskModel task, RoutedFrom routedFrom
+});
+
+
+$TaskModelCopyWith<$Res> get task;
+
+}
+/// @nodoc
+class __$AddInProgressTasksCopyWithImpl<$Res>
+    implements _$AddInProgressTasksCopyWith<$Res> {
+  __$AddInProgressTasksCopyWithImpl(this._self, this._then);
+
+  final _AddInProgressTasks _self;
+  final $Res Function(_AddInProgressTasks) _then;
+
+/// Create a copy of TodoEvents
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? task = null,Object? routedFrom = null,}) {
+  return _then(_AddInProgressTasks(
+task: null == task ? _self.task : task // ignore: cast_nullable_to_non_nullable
+as TaskModel,routedFrom: null == routedFrom ? _self.routedFrom : routedFrom // ignore: cast_nullable_to_non_nullable
+as RoutedFrom,
+  ));
+}
+
+/// Create a copy of TodoEvents
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TaskModelCopyWith<$Res> get task {
+  
+  return $TaskModelCopyWith<$Res>(_self.task, (value) {
+    return _then(_self.copyWith(task: value));
+  });
+}
+}
 
 /// @nodoc
 
 
 class _AddIsCompleteTasks implements TodoEvents {
-  const _AddIsCompleteTasks();
+  const _AddIsCompleteTasks({required this.task, required this.routedFrom});
   
 
+ final  TaskModel task;
+ final  RoutedFrom routedFrom;
 
-
+/// Create a copy of TodoEvents
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AddIsCompleteTasksCopyWith<_AddIsCompleteTasks> get copyWith => __$AddIsCompleteTasksCopyWithImpl<_AddIsCompleteTasks>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddIsCompleteTasks);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AddIsCompleteTasks&&(identical(other.task, task) || other.task == task)&&(identical(other.routedFrom, routedFrom) || other.routedFrom == routedFrom));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,task,routedFrom);
 
 @override
 String toString() {
-  return 'TodoEvents.addInCompleteTasks()';
+  return 'TodoEvents.addInCompleteTasks(task: $task, routedFrom: $routedFrom)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$AddIsCompleteTasksCopyWith<$Res> implements $TodoEventsCopyWith<$Res> {
+  factory _$AddIsCompleteTasksCopyWith(_AddIsCompleteTasks value, $Res Function(_AddIsCompleteTasks) _then) = __$AddIsCompleteTasksCopyWithImpl;
+@useResult
+$Res call({
+ TaskModel task, RoutedFrom routedFrom
+});
 
 
+$TaskModelCopyWith<$Res> get task;
+
+}
+/// @nodoc
+class __$AddIsCompleteTasksCopyWithImpl<$Res>
+    implements _$AddIsCompleteTasksCopyWith<$Res> {
+  __$AddIsCompleteTasksCopyWithImpl(this._self, this._then);
+
+  final _AddIsCompleteTasks _self;
+  final $Res Function(_AddIsCompleteTasks) _then;
+
+/// Create a copy of TodoEvents
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? task = null,Object? routedFrom = null,}) {
+  return _then(_AddIsCompleteTasks(
+task: null == task ? _self.task : task // ignore: cast_nullable_to_non_nullable
+as TaskModel,routedFrom: null == routedFrom ? _self.routedFrom : routedFrom // ignore: cast_nullable_to_non_nullable
+as RoutedFrom,
+  ));
+}
+
+/// Create a copy of TodoEvents
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$TaskModelCopyWith<$Res> get task {
+  
+  return $TaskModelCopyWith<$Res>(_self.task, (value) {
+    return _then(_self.copyWith(task: value));
+  });
+}
+}
 
 /// @nodoc
 

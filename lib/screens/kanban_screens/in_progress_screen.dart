@@ -23,7 +23,7 @@ class _InProgressScreenState extends State<InProgressScreen> {
             case Initial(:final progressList):
               return KanbanView(
                 data: progressList,
-                routedFrom: RoutedFrom.todoPage,
+                routedFrom: RoutedFrom.inProgressPage,
               );
             case Loading():
               return Center(child: CircularProgressIndicator());

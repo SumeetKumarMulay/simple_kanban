@@ -43,8 +43,26 @@ class _KanbanViewState extends State<KanbanView> {
                 final selectedValue = await showEditMenu.show(context);
                 switch (selectedValue) {
                   case EditMenuAction.moveTaskToTodo:
+                    BlocProvider.of<TodoBloc>(context).add(
+                      TodoEvents.moveTaskToTodo(
+                        task: widget.data[index],
+                        routedFrom: widget.routedFrom,
+                      ),
+                    );
                   case EditMenuAction.moveTaskToInProgress:
+                    BlocProvider.of<TodoBloc>(context).add(
+                      TodoEvents.addInProgressTasks(
+                        task: widget.data[index],
+                        routedFrom: widget.routedFrom,
+                      ),
+                    );
                   case EditMenuAction.moveTaskToComplete:
+                    BlocProvider.of<TodoBloc>(context).add(
+                      TodoEvents.addInCompleteTasks(
+                        task: widget.data[index],
+                        routedFrom: widget.routedFrom,
+                      ),
+                    );
                   case EditMenuAction.deleteTask:
                     BlocProvider.of<TodoBloc>(context).add(
                       TodoEvents.onDeleteTask(
@@ -64,7 +82,23 @@ class _KanbanViewState extends State<KanbanView> {
               },
               child: CustomContainer(
                 data: widget.data[index],
-                onCheckMark: (value) {},
+                onCheckMark: (value) {
+                  if (value! == true) {
+                    BlocProvider.of<TodoBloc>(context).add(
+                      TodoEvents.addInCompleteTasks(
+                        task: widget.data[index],
+                        routedFrom: widget.routedFrom,
+                      ),
+                    );
+                  } else {
+                    BlocProvider.of<TodoBloc>(context).add(
+                      TodoEvents.moveTaskToTodo(
+                        task: widget.data[index],
+                        routedFrom: widget.routedFrom,
+                      ),
+                    );
+                  }
+                },
                 onDelete: () {},
               ),
             ),
