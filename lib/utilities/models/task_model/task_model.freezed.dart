@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TaskModel {
 
- String? get title; String get body; bool get isCompleted; Priority get priority;
+ String? get title; String? get id; String get body; bool get isCompleted; Priority get priority;
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $TaskModelCopyWith<TaskModel> get copyWith => _$TaskModelCopyWithImpl<TaskModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskModel&&(identical(other.title, title) || other.title == title)&&(identical(other.body, body) || other.body == body)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted)&&(identical(other.priority, priority) || other.priority == priority));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskModel&&(identical(other.title, title) || other.title == title)&&(identical(other.id, id) || other.id == id)&&(identical(other.body, body) || other.body == body)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted)&&(identical(other.priority, priority) || other.priority == priority));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,title,body,isCompleted,priority);
+int get hashCode => Object.hash(runtimeType,title,id,body,isCompleted,priority);
 
 @override
 String toString() {
-  return 'TaskModel(title: $title, body: $body, isCompleted: $isCompleted, priority: $priority)';
+  return 'TaskModel(title: $title, id: $id, body: $body, isCompleted: $isCompleted, priority: $priority)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $TaskModelCopyWith<$Res>  {
   factory $TaskModelCopyWith(TaskModel value, $Res Function(TaskModel) _then) = _$TaskModelCopyWithImpl;
 @useResult
 $Res call({
- String? title, String body, bool isCompleted, Priority priority
+ String? title, String? id, String body, bool isCompleted, Priority priority
 });
 
 
@@ -66,9 +66,10 @@ class _$TaskModelCopyWithImpl<$Res>
 
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = freezed,Object? body = null,Object? isCompleted = null,Object? priority = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? title = freezed,Object? id = freezed,Object? body = null,Object? isCompleted = null,Object? priority = null,}) {
   return _then(_self.copyWith(
 title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,body: null == body ? _self.body : body // ignore: cast_nullable_to_non_nullable
 as String,isCompleted: null == isCompleted ? _self.isCompleted : isCompleted // ignore: cast_nullable_to_non_nullable
 as bool,priority: null == priority ? _self.priority : priority // ignore: cast_nullable_to_non_nullable
@@ -83,12 +84,13 @@ as Priority,
 @JsonSerializable()
 
 class _TaskModel implements TaskModel {
-  const _TaskModel({this.title, required this.body, required this.isCompleted, required this.priority});
+  const _TaskModel({this.title, this.id, required this.body, this.isCompleted = false, required this.priority});
   factory _TaskModel.fromJson(Map<String, dynamic> json) => _$TaskModelFromJson(json);
 
 @override final  String? title;
+@override final  String? id;
 @override final  String body;
-@override final  bool isCompleted;
+@override@JsonKey() final  bool isCompleted;
 @override final  Priority priority;
 
 /// Create a copy of TaskModel
@@ -104,16 +106,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskModel&&(identical(other.title, title) || other.title == title)&&(identical(other.body, body) || other.body == body)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted)&&(identical(other.priority, priority) || other.priority == priority));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskModel&&(identical(other.title, title) || other.title == title)&&(identical(other.id, id) || other.id == id)&&(identical(other.body, body) || other.body == body)&&(identical(other.isCompleted, isCompleted) || other.isCompleted == isCompleted)&&(identical(other.priority, priority) || other.priority == priority));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,title,body,isCompleted,priority);
+int get hashCode => Object.hash(runtimeType,title,id,body,isCompleted,priority);
 
 @override
 String toString() {
-  return 'TaskModel(title: $title, body: $body, isCompleted: $isCompleted, priority: $priority)';
+  return 'TaskModel(title: $title, id: $id, body: $body, isCompleted: $isCompleted, priority: $priority)';
 }
 
 
@@ -124,7 +126,7 @@ abstract mixin class _$TaskModelCopyWith<$Res> implements $TaskModelCopyWith<$Re
   factory _$TaskModelCopyWith(_TaskModel value, $Res Function(_TaskModel) _then) = __$TaskModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? title, String body, bool isCompleted, Priority priority
+ String? title, String? id, String body, bool isCompleted, Priority priority
 });
 
 
@@ -141,9 +143,10 @@ class __$TaskModelCopyWithImpl<$Res>
 
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? title = freezed,Object? body = null,Object? isCompleted = null,Object? priority = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? title = freezed,Object? id = freezed,Object? body = null,Object? isCompleted = null,Object? priority = null,}) {
   return _then(_TaskModel(
 title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,body: null == body ? _self.body : body // ignore: cast_nullable_to_non_nullable
 as String,isCompleted: null == isCompleted ? _self.isCompleted : isCompleted // ignore: cast_nullable_to_non_nullable
 as bool,priority: null == priority ? _self.priority : priority // ignore: cast_nullable_to_non_nullable

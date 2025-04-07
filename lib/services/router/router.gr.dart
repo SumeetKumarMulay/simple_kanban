@@ -27,6 +27,70 @@ class CompletedRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CreateTaskScreen]
+class CreateTaskRoute extends PageRouteInfo<void> {
+  const CreateTaskRoute({List<PageRouteInfo>? children})
+    : super(CreateTaskRoute.name, initialChildren: children);
+
+  static const String name = 'CreateTaskRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CreateTaskScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [EditTaskScreen]
+class EditTaskRoute extends PageRouteInfo<EditTaskRouteArgs> {
+  EditTaskRoute({
+    Key? key,
+    required TaskModel task,
+    required RoutedFrom routedFrom,
+    List<PageRouteInfo>? children,
+  }) : super(
+         EditTaskRoute.name,
+         args: EditTaskRouteArgs(key: key, task: task, routedFrom: routedFrom),
+         initialChildren: children,
+       );
+
+  static const String name = 'EditTaskRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<EditTaskRouteArgs>();
+      return EditTaskScreen(
+        key: args.key,
+        task: args.task,
+        routedFrom: args.routedFrom,
+      );
+    },
+  );
+}
+
+class EditTaskRouteArgs {
+  const EditTaskRouteArgs({
+    this.key,
+    required this.task,
+    required this.routedFrom,
+  });
+
+  final Key? key;
+
+  final TaskModel task;
+
+  final RoutedFrom routedFrom;
+
+  @override
+  String toString() {
+    return 'EditTaskRouteArgs{key: $key, task: $task, routedFrom: $routedFrom}';
+  }
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})

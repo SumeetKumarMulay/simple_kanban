@@ -25,8 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
       builder: (context, child) {
         /**
-         * get route context.
-         */
+           * get route context.
+           */
         final tabRouter = AutoTabsRouter.of(context);
         final List<String> pageTitle = [
           "Todo's 📋",
@@ -40,8 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
             currentIndex: tabRouter.activeIndex,
             onTap: (index) {
               /**
-               * handle index changes
-               */
+                 * handle index changes
+                 */
               tabRouter.setActiveIndex(index);
             },
             items: [
